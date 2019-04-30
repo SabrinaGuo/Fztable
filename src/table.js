@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import "./style.scss";
 
-export default class App extends Component {
-  constructor() {
-    super();
+export default class table extends Component {
+  constructor(props) {
+    super(props);
+    //接口需要
 
     this.state = {
+      //設定狀態
+
+      //data
       date: [
         {
           start: "12/27 (三)",
@@ -311,35 +315,8 @@ export default class App extends Component {
     };
   }
 
-  getEndDate(dateKey) {
-    const dateList = this.state.date;
-    let i;
-    let dateEnd = [];
-    console.log("dateList.length", dateList.length);
-    for (i = 0; i < 7; i++) {
-      dateEnd.push(dateList[i][dateKey]);
-      // return dateEnd;
-      //dateList.length /
-      console.log(dateEnd);
-    }
-    return dateEnd;
-  }
-
-  getStartDate(dateKey) {
-    const dateList = this.state.date;
-    let j;
-    let dateStart = [];
-    console.log("dateList.length", dateList.length);
-    for (j = 0; j < dateList.length; j += 7) {
-      dateStart.push(dateList[j][dateKey]);
-      // return dateEnd;
-      //dateList.length /
-      console.log(dateStart);
-    }
-    return dateStart;
-  }
-
   render() {
+    console.log(this.state.date);
     return (
       <div className="container">
         <table>
@@ -350,25 +327,11 @@ export default class App extends Component {
                 <div className="textLeft">去程</div>
               </th>
               <td className="dFlex bgGr">
-                {this.getEndDate("end").map((string, index) => {
-                  return (
-                    <div key={index} className="borderRB">
-                      <span>{string}</span>
-                    </div>
-                  );
-                })}
+                <div className="borderRB date2">
+                  <span>{this.state.date[0]}</span>
+                </div>
               </td>
             </tr>
-            {this.getStartDate("start").map((startString, index) => {
-              return (
-                <tr>
-                  <th key={index} className="dateCol borderRB">
-                    <span>{startString}</span>
-                  </th>
-                  <td />
-                </tr>
-              );
-            })}
           </tbody>
         </table>
       </div>
