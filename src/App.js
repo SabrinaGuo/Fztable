@@ -315,12 +315,12 @@ export default class App extends Component {
     const dateList = this.state.date;
     let i;
     let dateEnd = [];
-    console.log("dateList.length", dateList.length);
+    // console.log("dateList.length", dateList.length);
     for (i = 0; i < 7; i++) {
       dateEnd.push(dateList[i][dateKey]);
       // return dateEnd;
       //dateList.length /
-      console.log(dateEnd);
+      // console.log(dateEnd);
     }
     return dateEnd;
   }
@@ -329,12 +329,11 @@ export default class App extends Component {
     const dateList = this.state.date;
     let j;
     let dateStart = [];
-    console.log("dateList.length", dateList.length);
     for (j = 0; j < dateList.length; j += 7) {
       dateStart.push(dateList[j][dateKey]);
       // return dateEnd;
       //dateList.length /
-      console.log(dateStart);
+      // console.log(dateStart);
     }
     return dateStart;
   }
@@ -359,13 +358,18 @@ export default class App extends Component {
                 })}
               </td>
             </tr>
+
             {this.getStartDate("start").map((startString, index) => {
               return (
                 <tr>
                   <th key={index} className="dateCol borderRB">
                     <span>{startString}</span>
                   </th>
-                  <td />
+                  <td className="dFlex price">
+                    <div className="borderRB">
+                      <span>{this.state.date[0]["price"]}</span>
+                    </div>
+                  </td>
                 </tr>
               );
             })}
