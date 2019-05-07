@@ -120,18 +120,6 @@ body {
           &.slider2 {
             left: calc(-2 * (100% / 1)); //點三次
           }
-          &.slider3 {
-            left: calc(-3 * (100% / 1)); //點兩次
-          }
-          &.slider4 {
-            left: calc(-4 * (100% / 1)); //點一次
-          }
-          &.slider5 {
-            left: calc(-1 * (100% / 1));
-          }
-          &.slider6 {
-            left: calc(-1 * (100% / 1));
-          }
         }
         &.show2 {
           min-width: calc((100% / 2) * 7);
@@ -140,12 +128,6 @@ body {
           }
           &.slider2 {
             left: calc(-2 * (100% / 2)); //點五次
-          }
-          &.slider3 {
-            left: calc(-3 * (100% / 2)); //點五次
-          }
-          &.slider4 {
-            left: calc(-4 * (100% / 2)); //點五次
           }
         }
         &.show3 {
@@ -156,12 +138,6 @@ body {
           &.slider2 {
             left: calc(-2 * (100% / 3)); //點五次
           }
-          &.slider3 {
-            left: calc(-3 * (100% / 3)); //點五次
-          }
-          &.slider4 {
-            left: calc(-4 * (100% / 3)); //點五次
-          }
         }
         &.show4 {
           min-width: calc((100% / 4) * 7);
@@ -171,27 +147,9 @@ body {
           &.slider2 {
             left: calc(-2 * (100% / 4)); //點五次
           }
-          &.slider3 {
-            left: calc(-3 * (100% / 4)); //點五次
-          }
-          &.slider4 {
-            left: calc(-4 * (100% / 4)); //點五次
-          }
         }
       }
 
-      // .slider1 {
-      //   left: calc(-1 * (100% / 3)); //點擊後移動的格數
-      // }
-      // .slider2 {
-      //   left: calc(-2 * (100% / 3));
-      // }
-      // .slider3 {
-      //   left: calc(-3 * (100% / 3));
-      // }
-      // .slider4 {
-      //   left: calc(-4 * (100% / 3));
-      // }
       span {
         color: #444;
         margin-right: 5px;

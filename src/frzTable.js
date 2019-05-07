@@ -94,26 +94,19 @@ export default class FrzTable extends Component {
     for (let i = 0; i < dateList.length; i += 1) {
       datePrice.push(dateList[i]["price"]);
       // console.log(priceN);
+      // console.log(datePrice);
     }
     return datePrice;
-  }
-  cheaper() {
-    let dateList = ticketInfo.data;
-    let cheaper = [];
-    for (let i = 0; i < dateList.length; i += 1) {
-      cheaper.push(dateList[i]["cheaper"]);
-    }
-    return cheaper;
   }
 
   onClick(e) {
     let idClick = e.target.getAttribute("id");
+    this.props.whenClick(e.target);
     let dateRow = Math.floor(idClick / 7);
     let dateCol = idClick % 7;
     let row = [];
     let col = [];
     let both = [];
-    this.props.whenClick(e.target);
     //重新設定class的狀態
     //取得當格的key僅有他自己加上active
     //取得其他相鄰位置的key 加上 activeBg
@@ -194,7 +187,7 @@ export default class FrzTable extends Component {
     let dateList = ticketInfo.data;
     let showDiv = this.props.count.show - 1;
     let newOriginMove = this.state.originMove;
-    let newT = this.state.countTouch;
+    // let newT = this.state.countTouch;
     // console.log(newT);
     let arrowR = this.state.arrowRightHere;
     let arrowL = this.state.arrowLeftHere;
@@ -205,7 +198,7 @@ export default class FrzTable extends Component {
       left: `${newOriginMove}%`,
       transition: `${moveSpeed}s`
     };
-    console.log(moveSpeed);
+    // console.log(moveSpeed);
     return (
       <div className="container">
         <div>
