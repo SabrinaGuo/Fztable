@@ -150,7 +150,6 @@ export default class FrzTable extends Component {
       arrowLeftHere: arrowLeft,
       arrowRightHere: 1 //當點擊左邊時 右邊可以產生箭頭
     });
-    console.log(arrowLeft);
   };
   moveRight = () => {
     const show = this.props.count.show; //3 顯示3格
