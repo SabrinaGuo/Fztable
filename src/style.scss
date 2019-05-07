@@ -1,126 +1,374 @@
-.container {
-  margin: 0 auto;
-  width: 960px;
-  background: #fff;
-  font-family: Verdana, Arial, nMicrosoft JhengHei, Microsoft YaHei;
-  font-size: 14px;
-  line-height: 1.5;
-
-  table {
+body {
+  .container {
+    position: relative;
     width: 100%;
+    margin: 0 auto;
+    max-width: 960px;
+    background: #fff;
+    font-family: Verdana, Arial, nMicrosoft JhengHei, Microsoft YaHei;
+    font-size: 14px;
     border: 1px solid #e1e2e4;
-    border-spacing: 0;
-  }
-  tr {
-    height: 50px;
-    text-align: center;
-    vertical-align: middle;
-  }
-  th {
-    width: 88px;
-    height: 50px;
-  }
-  td {
-    width: 872px;
-    color: #999999;
-    padding: 0;
-  }
-  td div {
-    width: 14.286%;
-    height: 50px;
-    box-sizing: border-box;
-  }
-  .price {
+    overflow: hidden;
     div {
-      &:hover {
-        background: #fff9e3;
-        border: 1px solid #fe8b88;
+      p {
+        height: calc(100% / 2);
+        margin: 0;
+        padding: 0;
+      }
+      span {
+        pointer-events: none;
       }
     }
-    span {
-      color: #444;
-      margin-right: 5px;
-    }
-  }
-  .dFlex {
-    display: flex;
-    justify-content: space-around;
-    line-height: 50px;
-  }
-  .textLeft {
-    text-align: left;
-    font-weight: 100;
-    color: #666666;
-  }
-  .textRight {
-    text-align: right;
-    font-weight: 100;
-    color: #666666;
-  }
-  .titleDiv {
-    text-align: center;
-    display: inline;
-  }
-  .pd-4 {
-    height: 42px;
-    width: 80px;
-    padding: 4px;
-  }
-  .bgGr {
-    background: #eaedf2;
-  }
-  .dateCol {
-    background: #f1f1f1;
-    color: #666;
-    font-weight: 400;
-    padding: 0;
-  }
-  .borderRB {
-    border: solid #e1e2e4;
-    border-width: 0 1px 1px 0;
-    border-spacing: 0;
-  }
-  .borderR {
-    border-right: 1px solid #e1e2e4;
-    border-spacing: 0;
-  }
-  .borderB {
-    border-bottom: 1px solid #e1e2e4;
-    border-spacing: 0;
-  }
-  .cheapest {
-    position: relative;
-    &::before {
-      content: "最便宜";
+    .dateRow {
+      display: flex;
+      justify-content: flex-start;
+      line-height: 50px;
+      width: calc(100% - 88px);
       position: absolute;
-      top: -16px;
-      left: 20px;
-      color: #ff8e26;
-      font-size: 12px;
+      left: 88px;
+      top: 0;
+      background: #eaedf2;
+      overflow: hidden;
+      // flex-wrap: wrap;
+      height: 50px;
+      text-align: center;
+
+      div {
+        min-width: calc(100% / 3); //顯示幾格
+        border: solid #e1e2e4;
+        border-width: 0 0 0 1px;
+        border-spacing: 0;
+        box-sizing: border-box;
+        &.show1 {
+          min-width: calc(100% / 1); //顯示幾格
+        }
+        &.show2 {
+          min-width: calc(100% / 2);
+        }
+        &.show3 {
+          min-width: calc(100% / 3);
+        }
+        &.show4 {
+          min-width: calc(100% / 4);
+        }
+      }
+      .allEndDate {
+        display: flex;
+        width: 100%;
+        position: absolute;
+        left: 0; //調整left
+      }
+
+      // .slider1 {
+      //   left: calc(-1 * (100% / 3)); //點擊後移動的格數
+      // }
+      // .slider2 {
+      //   left: calc(-2 * (100% / 3));
+      // }
+      // .slider3 {
+      //   left: calc(-3 * (100% / 3));
+      // }
+      // .slider4 {
+      //   left: calc(-4 * (100% / 3));
+      // }
+      // @for $i from 1 through 4{
+      //   .show#{$i}{
+      //     min-width: 100%/$i;
+      //   }
+      // }
     }
-    &::after {
-      content: "";
-      height: 0;
-      width: 0;
+    .priceShow {
       position: absolute;
-      top: -1px;
-      left: 0;
-      border-top: 10px solid #ff8e26;
-      border-right: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-left: 10px solid #ff8e26;
+      height: 350px;
+      left: 88px;
+      top: 50px;
+      width: calc(100% - 88px);
+      display: flex;
+      flex-wrap: wrap;
+      overflow: hidden;
+      justify-content: flex-start;
+      div {
+        min-width: calc((100% / 7));
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border: solid #e1e2e4;
+        border-width: 1px 0 0 1px;
+        border-spacing: 0;
+        box-sizing: border-box;
+        color: #acadaf;
+      }
+      .allPrice {
+        min-width: calc((100% / 3) * 7); //顯示幾格
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        left: 0; //調整lef
+        div {
+          & :hover {
+            background: #fff9e3;
+            border: 1px solid #fe8b88;
+            cursor: pointer;
+          }
+        }
+        &.show1 {
+          min-width: calc((100% / 1) * 7); //顯示幾格
+          &.slider1 {
+            left: calc(-1 * (100% / 1)); //點六次
+          }
+          &.slider2 {
+            left: calc(-2 * (100% / 1)); //點三次
+          }
+          &.slider3 {
+            left: calc(-3 * (100% / 1)); //點兩次
+          }
+          &.slider4 {
+            left: calc(-4 * (100% / 1)); //點一次
+          }
+          &.slider5 {
+            left: calc(-1 * (100% / 1));
+          }
+          &.slider6 {
+            left: calc(-1 * (100% / 1));
+          }
+        }
+        &.show2 {
+          min-width: calc((100% / 2) * 7);
+          &.slider1 {
+            left: calc(-1 * (100% / 2)); //點五次一次一格
+          }
+          &.slider2 {
+            left: calc(-2 * (100% / 2)); //點五次
+          }
+          &.slider3 {
+            left: calc(-3 * (100% / 2)); //點五次
+          }
+          &.slider4 {
+            left: calc(-4 * (100% / 2)); //點五次
+          }
+        }
+        &.show3 {
+          min-width: calc((100% / 3) * 7);
+          &.slider1 {
+            left: calc(-1 * (100% / 3)); //點五次
+          }
+          &.slider2 {
+            left: calc(-2 * (100% / 3)); //點五次
+          }
+          &.slider3 {
+            left: calc(-3 * (100% / 3)); //點五次
+          }
+          &.slider4 {
+            left: calc(-4 * (100% / 3)); //點五次
+          }
+        }
+        &.show4 {
+          min-width: calc((100% / 4) * 7);
+          &.slider1 {
+            left: calc(-1 * (100% / 4)); //點五次
+          }
+          &.slider2 {
+            left: calc(-2 * (100% / 4)); //點五次
+          }
+          &.slider3 {
+            left: calc(-3 * (100% / 4)); //點五次
+          }
+          &.slider4 {
+            left: calc(-4 * (100% / 4)); //點五次
+          }
+        }
+      }
+
+      // .slider1 {
+      //   left: calc(-1 * (100% / 3)); //點擊後移動的格數
+      // }
+      // .slider2 {
+      //   left: calc(-2 * (100% / 3));
+      // }
+      // .slider3 {
+      //   left: calc(-3 * (100% / 3));
+      // }
+      // .slider4 {
+      //   left: calc(-4 * (100% / 3));
+      // }
+      span {
+        color: #444;
+        margin-right: 5px;
+      }
+      .nohover {
+        pointer-events: none;
+        cursor: auto;
+        span {
+          color: #acadaf;
+        }
+      }
+      .activeBg {
+        background: #f7f7f7;
+      }
+      .active {
+        background: #fff9e3;
+        border: solid #fe8b88;
+        border-width: 1px;
+      }
+    }
+
+    .dateCol {
+      background: #f1f1f1;
+      color: #666;
+      font-weight: 400;
+      width: 88px;
+      height: max-content;
+
+      .pd-4 {
+        height: 42px;
+        width: 80px;
+        padding: 4px;
+
+        .textLeft {
+          text-align: left;
+          font-weight: 100;
+          color: #666666;
+        }
+        .textRight {
+          text-align: right;
+          font-weight: 100;
+          color: #666666;
+        }
+      }
+      .dateOnly {
+        height: max-content;
+        div {
+          line-height: 50px;
+          text-align: center;
+          height: 50px;
+          border: solid #e1e2e4;
+          border-width: 1px 0 0 0;
+          border-spacing: 0;
+          box-sizing: border-box;
+        }
+      }
+    }
+    .cheapest {
+      position: relative;
+      &::before {
+        content: "最便宜";
+        position: absolute;
+        top: -16px;
+        left: 20px;
+        color: #ff8e26;
+        font-size: 12px;
+      }
+      &::after {
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        top: -1px;
+        left: 0;
+        border-top: 10px solid #ff8e26;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid #ff8e26;
+      }
     }
     .newYear {
-      &::before {
-        content: "2018";
-        font-size: 12px;
-        color: #24a07c;
-        display: block;
-        height: 12px;
-        padding-left: 29px;
-        padding-bottom: 5px;
-        margin-top: -11px;
+      font-size: 12px;
+      word-break: break-word;
+      display: block;
+      height: 11px;
+      text-align: left;
+      margin-top: -16px;
+      padding-left: 6px;
+      padding-bottom: 8px;
+      color: #24a07c;
+    }
+
+    .rightGo {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      background: hsla(0, 0%, 67%, 0.5);
+      width: 20px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .leftGo {
+      position: absolute;
+      top: 50%;
+      left: 88px;
+      background: hsla(0, 0%, 67%, 0.5);
+      width: 20px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .diNo {
+      visibility: hidden;
+    }
+    @media screen and (min-width: 769px) {
+      .dateRow {
+        div {
+          min-width: calc(100% / 7);
+          &.show1,
+          &.show2,
+          &.show3,
+          &.show4 {
+            min-width: calc(100% / 7); //顯示幾格
+          }
+        }
+        .allEndDate {
+          display: flex;
+          width: 100%;
+          position: absolute;
+          left: 0;
+        }
+      }
+      .priceShow {
+        .allPrice {
+          min-width: calc(100% / 7);
+          height: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          position: absolute;
+          left: 0;
+          div {
+            &:hover {
+              background: #fff9e3;
+              border: 1px solid #fe8b88;
+              cursor: pointer;
+            }
+          }
+          &.show1,
+          &.show2,
+          &.show3,
+          &.show4 {
+            min-width: calc(100% / 7); //顯示幾格
+          }
+          // &.show2 {
+          //   min-width: calc(100% / 7);
+          // }
+          // &.show3 {
+          //   min-width: calc(100% / 7);
+          // }
+          // &.show4 {
+          //   min-width: calc(100% / 7);
+          // }
+        }
+      }
+
+      .rightGo,
+      .leftGo {
+        display: none;
       }
     }
   }
 }
+// calc(88px - (100%/3)*3 + 88px);
