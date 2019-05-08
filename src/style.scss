@@ -285,7 +285,7 @@ body {
         .allEndDate {
           display: flex;
           width: 100%;
-          position: absolute;
+          position: static; //網頁版無須設定成absolute 且會影響RWD執行
           left: 0;
         }
       }
@@ -295,7 +295,7 @@ body {
           height: 100%;
           display: flex;
           flex-wrap: wrap;
-          position: absolute;
+          position: static;
           left: 0;
           div {
             &:hover {

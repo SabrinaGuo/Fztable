@@ -1,18 +1,10 @@
 import React, { Component } from "react";
 import "./style.scss";
 import ticketInfo from "./ticketinfo.json";
+import PropTypes from "prop-types";
 
 export default class FrzTable extends Component {
-  //   static defaultProps = {
-  //    count={
-  //      slide: 1, // [number]
-  //      show: 4 //} [number]
-  //    },
-  //    speed:{0.3}, // [number]
-  //    whenClick: function($element) {
-  //      console.log($element);
-  //    }
-  //  };
+  //預設傳入資料(若主頁沒有傳入則套用此預設值)
   static defaultProps = {
     count: { show: 4, slide: 1 },
     speed: 0.3,
@@ -20,22 +12,23 @@ export default class FrzTable extends Component {
       console.log($element);
     }
   };
-  constructor(props) {
-    super(props);
-    //預設傳入資料(若主頁沒有傳入則套用此預設值)
+  //確認傳入資料格式是否有誤
+  static propTypes = {
+    slide: PropTypes.number,
+    show: PropTypes.number,
+    speed: PropTypes.number,
+    whenClick: PropTypes.func
+  };
 
-    this.state = {
-      // status: 0,
-      id: "",
-      dateCross: [],
-      originMove: 0, //原點會因為移動距離而改變
-      countTouch: 1, //已按次數
-      arrowRightHere: 1,
-      arrowLeftHere: 0
-    };
-  }
+  state = {
+    id: "",
+    dateCross: [],
+    originMove: 0, //原點會因為移動距離而改變
+    countTouch: 0, //已按次數
+    arrowRightHere: 1,
+    arrowLeftHere: 0
+  };
   classList = ["show1", "show2", "show3", "show4"];
-  moveList = ["slider1", "slider2", "slider3", "slider4"];
 
   getEndDate() {
     let dateList = ticketInfo.data;
@@ -129,24 +122,35 @@ export default class FrzTable extends Component {
     const slide = this.props.count.slide; //1 移動一格
     const org = 0;
 
-    let leftTounch = Math.floor((7 - show) / slide);
-    let canUTouch = this.state.time;
-    let leftMove;
-    let arrowLeft;
+    // let leftTounch = Math.floor((7 - show) / slide); //計算出每次可點擊的次數
+    let clickCount = this.state.countTouch; //已經點擊數次
+    let leftMove; //移動的位置
+    let arrowLeft; //判斷左箭頭
+    // console.log("計算左", leftTounch);
+    // console.log("已點擊左", clickCount);
     //移動的距離 往左的left是正數 +
-    if (leftTounch <= this.state.countTouch) {
+    if (this.state.countTouch !== 0) {
       leftMove = this.state.originMove + slide * (100 / show);
-      canUTouch = this.state.countTouch - 1;
+      clickCount = this.state.countTouch - 1;
       arrowLeft = 1;
-    } else if (leftTounch > this.state.countTouch) {
+      if (clickCount === 0) {
+        leftMove = org;
+        arrowLeft = 0;
+      }
+
+      // console.log("if計算左", leftTounch);
+      // console.log("if已點擊左", clickCount);
+    } else if (this.state.countTouch === 0) {
       leftMove = org;
-      canUTouch = leftTounch - 1;
+      clickCount = this.state.countTouch;
       arrowLeft = 0;
+      // console.log("else計算左", leftTounch);
+      // console.log("else已點擊左", clickCount);
     }
 
     this.setState({
       originMove: leftMove, //丟回去變更原點
-      countTouch: canUTouch,
+      countTouch: clickCount,
       arrowLeftHere: arrowLeft,
       arrowRightHere: 1 //當點擊左邊時 右邊可以產生箭頭
     });
@@ -155,30 +159,40 @@ export default class FrzTable extends Component {
     const show = this.props.count.show; //3 顯示3格
     const slide = this.props.count.slide; //1 移動一格
     const org = 0;
+    let chWidth = (7 - show) % slide;
     let rightTounch = Math.floor((7 - show) / slide);
-    let canUTouch = this.state.time - 1; //state一開始為1 讓他歸零
+    let clickCount = this.state.countTouch;
     let arrowRight;
-    let rightMove;
-    //移動的距離 往右的left是負數-
+    let rightMove; //移動的距離 往右的left是負數-
 
-    if (rightTounch >= this.state.countTouch) {
+    if (rightTounch > this.state.countTouch) {
       rightMove = this.state.originMove - slide * (100 / show);
-      canUTouch = this.state.countTouch + 1;
+      clickCount = this.state.countTouch + 1;
       arrowRight = 1;
-    } else if (rightTounch < this.state.countTouch) {
-      rightMove = org - (100 / show) * (7 - show);
-      canUTouch = rightTounch + 1;
-      arrowRight = 0;
-    }
 
+      if (chWidth === 0 && rightTounch === clickCount) {
+        clickCount = this.state.countTouch + 1;
+        arrowRight = 0;
+      }
+      // console.log("if計算右", rightTounch);
+      // console.log("chWidth", chWidth);
+      // console.log("if已點擊右", clickCount);
+    } else if (rightTounch <= this.state.countTouch) {
+      rightMove = org - (100 / show) * (7 - show);
+      // clickCount = rightTounch - 1;
+      clickCount = this.state.countTouch + 1;
+      arrowRight = 0;
+      // console.log("else計算右", rightTounch);
+      // console.log("else已點擊右", clickCount);
+    }
     this.setState({
       originMove: rightMove, //丟回去變更原點
-      countTouch: canUTouch,
+      countTouch: clickCount,
       arrowRightHere: arrowRight,
       arrowLeftHere: 1 //當點擊右邊時 左邊可以產生箭頭
     });
     // console.log(rightTounch);
-    // console.log(canUTouch);
+    // console.log(clickCount);
   };
 
   render() {
@@ -190,8 +204,8 @@ export default class FrzTable extends Component {
     // console.log(newT);
     let arrowR = this.state.arrowRightHere;
     let arrowL = this.state.arrowLeftHere;
-    // console.log(arrowL);
-    // console.log(arrowR);
+    // console.log("左箭頭", arrowL);
+    // console.log("右箭頭", arrowR);
     let moveSpeed = this.props.speed;
     let style = {
       left: `${newOriginMove}%`,
