@@ -212,19 +212,18 @@ export default class FrzTable extends Component {
       transition: `${moveSpeed}s`
     };
     // console.log(moveSpeed);
+    console.log(arrowL === 1 && "diNo");
+    //為了使className不因為三元運算而印出""或是false 將運算值用變數包起來丟下去
+    const arrowLL = arrowL === 0 ? " diNo" : "";
+    const arrowRR = arrowR === 0 ? " diNo" : "";
+
     return (
       <div className="container">
         <div>
-          <div
-            className={`leftGo ${arrowL === 0 ? "diNo" : ""}`}
-            onClick={this.moveLeft}
-          >
+          <div className={`leftGo${arrowLL}`} onClick={this.moveLeft}>
             <i className="fas fa-chevron-left" />
           </div>
-          <div
-            className={`rightGo ${arrowR === 0 ? "diNo" : ""}`}
-            onClick={this.moveRight}
-          >
+          <div className={`rightGo${arrowRR}`} onClick={this.moveRight}>
             <i className="fas fa-chevron-right" />
           </div>
         </div>
@@ -272,18 +271,17 @@ export default class FrzTable extends Component {
           <div className={`allPrice ${this.classList[showDiv]} `} style={style}>
             {/* 中間價錢 */}
             {this.getPrice().map((priceItem, idx) => {
-              let idClass = idx === Number(id) && idx !== 0 ? "active" : "";
+              let idClass = idx === Number(id) && idx !== 0 && "active";
               let idCross =
-                this.state.dateCross.indexOf(idx) === -1 ? "" : "activeBg";
-              let cheaper = dateList[idx]["cheaper"] ? "cheapest" : "";
+                this.state.dateCross.indexOf(idx) !== -1 && "activeBg";
+              let cheaper = dateList[idx]["cheaper"] && "cheapest";
               let localeString =
                 Number(priceItem).toLocaleString() === "非數值"
                   ? priceItem
                   : Number(priceItem).toLocaleString();
               let noHover =
-                Number(priceItem).toLocaleString() === "非數值"
-                  ? "nohover"
-                  : "";
+                Number(priceItem).toLocaleString() === "非數值" && "nohover";
+              let dot = Number(priceItem).toLocaleString() !== "非數值" && "起";
               return (
                 <div
                   className={`${noHover} ${idCross} ${idClass} ${cheaper}  `}
@@ -292,7 +290,7 @@ export default class FrzTable extends Component {
                   onClick={e => this.onClick(e)}
                 >
                   <span>{localeString}</span>
-                  {Number(priceItem).toLocaleString() !== "非數值" ? "起" : ""}
+                  {dot}
                 </div>
               );
             })}
